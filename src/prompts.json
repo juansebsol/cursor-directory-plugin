@@ -1,0 +1,15 @@
+[
+    {
+      "title": "Explain Code",
+      "prompt": "Can you explain this code in simple terms?"
+    },
+    {
+      "title": "Refactor for Performance",
+      "prompt": "Can you refactor this code to optimize performance and readability?"
+    },
+    {
+      "title": "Add Comments",
+      "prompt": "Can you add helpful comments to this code?"
+    }
+  ]
+  
