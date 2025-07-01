@@ -46,10 +46,10 @@ export async function activate(context: vscode.ExtensionContext) {
     const updatePanelContent = () => {
       if (!userPromptFilePath || !fs.existsSync(userPromptFilePath)) {
         panel.webview.html = `
-          <html><body style="font-family: sans-serif; padding: 2em; background: #1e1e1e; color: #ccc;">
+          <html><body style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #1e1e1e; color: #ccc; padding: 2em;">
             <h2>📂 No <code>prompts.json</code> found</h2>
-            <p>Please set a prompt directory by clicking the button below.</p>
-            <button onclick="changeFolder()" style="padding:10px 16px; background:#007acc; border:none; color:white; border-radius:4px;">Choose Prompt Folder</button>
+            <p>Click below to choose a prompt folder.</p>
+            <button onclick="changeFolder()" style="padding:10px 16px; background:#007acc; border:none; color:white; border-radius:6px;">Choose Folder</button>
             <script>
               const vscode = acquireVsCodeApi();
               function changeFolder() {
@@ -66,38 +66,51 @@ export async function activate(context: vscode.ExtensionContext) {
           <div class="title">${p.title}</div>
           <div class="buttons">
             <button onclick="copyPrompt(\`${p.prompt}\`)">📋 Copy</button>
-            <button class="delete" onclick="deletePrompt(${i})">✖ Delete</button>
+            <button class="delete" onclick="deletePrompt(${i})">✖</button>
           </div>
         </div>
       `).join('');
 
       panel.webview.html = `
-        <html><head><style>
-          body { font-family: sans-serif; padding: 1em; color: #ddd; background: #1e1e1e; }
-          .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1em; }
-          .prompt { border-bottom: 1px solid #444; padding: 0.5em 0; }
-          .title { font-weight: bold; margin-bottom: 0.25em; font-size: 1.1em; }
-          .buttons { display: flex; gap: 0.5em; }
-          button {
-            padding: 5px 12px;
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
-            font-size: 0.9em;
-          }
-          button.delete {
-            background: #ff5f56;
-            color: white;
-          }
-          button:not(.delete) {
-            background: #007acc;
-            color: white;
-          }
-        </style></head>
+        <html>
+        <head>
+          <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 2em; color: #ddd; background: #1e1e1e; }
+            .topbar { display: flex; justify-content: space-between; margin-bottom: 1.5em; }
+            .prompt { border-bottom: 1px solid #444; padding: 0.5em 0; }
+            .title { font-weight: 500; font-size: 1.05em; margin-bottom: 0.25em; }
+            .buttons { display: flex; gap: 0.5em; }
+            button {
+              padding: 6px 12px;
+              border-radius: 6px;
+              border: none;
+              cursor: pointer;
+              font-size: 0.9em;
+            }
+            .delete { background: #ff5f56; color: white; }
+            .copy { background: #007acc; color: white; }
+            .addbar { margin-bottom: 1em; display: flex; gap: 1em; }
+            input, textarea {
+              background: #2a2a2a;
+              color: white;
+              border: 1px solid #555;
+              border-radius: 6px;
+              padding: 6px;
+              width: 100%;
+              font-family: inherit;
+            }
+            textarea { resize: vertical; min-height: 50px; }
+          </style>
+        </head>
         <body>
           <div class="topbar">
             <h2>📘 Prompt Dictionary</h2>
             <button onclick="changeFolder()">⚙️ Change Folder</button>
+          </div>
+          <div class="addbar">
+            <input id="newTitle" placeholder="Prompt Title" />
+            <textarea id="newPrompt" placeholder="Prompt Text"></textarea>
+            <button onclick="addPrompt()" class="copy">➕ Add</button>
           </div>
           ${promptHtml || '<p>No prompts found in your prompts.json file.</p>'}
           <script>
@@ -111,8 +124,16 @@ export async function activate(context: vscode.ExtensionContext) {
             function deletePrompt(index) {
               vscode.postMessage({ command: 'deletePrompt', index });
             }
+            function addPrompt() {
+              const title = document.getElementById('newTitle').value;
+              const prompt = document.getElementById('newPrompt').value;
+              vscode.postMessage({ command: 'addPrompt', title, prompt });
+              document.getElementById('newTitle').value = '';
+              document.getElementById('newPrompt').value = '';
+            }
           </script>
-        </body></html>`;
+        </body>
+        </html>`;
     };
 
     panel.webview.onDidReceiveMessage(async (message) => {
@@ -125,6 +146,11 @@ export async function activate(context: vscode.ExtensionContext) {
       } else if (message.command === 'deletePrompt') {
         const updated = getPrompts().filter((_: any, i: number) => i !== message.index);
         fs.writeFileSync(userPromptFilePath!, JSON.stringify(updated, null, 2), 'utf8');
+        updatePanelContent();
+      } else if (message.command === 'addPrompt') {
+        const existing = getPrompts();
+        existing.push({ title: message.title || 'Untitled', prompt: message.prompt || '' });
+        fs.writeFileSync(userPromptFilePath!, JSON.stringify(existing, null, 2), 'utf8');
         updatePanelContent();
       }
     });

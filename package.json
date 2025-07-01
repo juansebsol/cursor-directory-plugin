@@ -2,14 +2,12 @@
   "name": "cursor-directory-plugin",
   "displayName": "cursor-directory-plugin",
   "description": "Prompt picker panel for Cursor.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "your-publisher-id",
   "engines": {
     "vscode": "^1.96.0"
   },
-  "categories": [
-    "Other"
-  ],
+  "categories": ["Other"],
   "activationEvents": [
     "onCommand:promptDictionary.openPanel",
     "onCommand:promptDictionary.changePromptFolder"
