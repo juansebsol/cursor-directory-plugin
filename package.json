@@ -1,25 +1,25 @@
 {
   "name": "cursor-directory-plugin",
   "displayName": "cursor-directory-plugin",
-  "description": "Prompt picker and sidebar for Cursor.",
+  "description": "Prompt picker panel for Cursor.",
   "version": "0.0.1",
+  "publisher": "your-publisher-id",
   "engines": {
     "vscode": "^1.96.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:promptDictionary.openPanel",
+    "onCommand:promptDictionary.changePromptFolder"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "promptDictionary.openSidebar",
-        "title": "Prompt Dictionary: Open Sidebar"
-      },
-      {
-        "command": "promptDictionary.insertFromList",
-        "title": "Prompt Dictionary: Insert from List"
+        "command": "promptDictionary.openPanel",
+        "title": "Prompt Dictionary: Open Panel"
       },
       {
         "command": "promptDictionary.changePromptFolder",

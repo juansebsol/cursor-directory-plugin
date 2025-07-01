@@ -1,12 +1,8 @@
-Here’s your complete, copy-pasteable `README.md` — fully self-contained and professional:
 
----
-
-````md
 # Cursor Directory Plugin
 
-A beautiful, minimal prompt picker built for [Cursor](https://www.cursor.sh) and VS Code.  
-Easily access your most-used AI prompts through a sidebar or command palette — copy and paste them into Cursor chat with one click.
+A beautiful, minimal prompt picker built for Cursor and VSCode.  
+Easily access your most used AI prompts through a sidebar or command palette and copy and paste them into Cursor chat with one click.
 
 ---
 
