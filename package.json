@@ -1,13 +1,16 @@
 {
   "name": "cursor-directory-plugin",
-  "displayName": "cursor-directory-plugin",
+  "displayName": "Cursor Directory Plugin",
   "description": "Prompt picker panel for Cursor.",
   "version": "0.0.1",
-  "publisher": "your-publisher-id",
+  "publisher": "SebastianSolano",
+  "icon": "media/icon.png",
   "engines": {
     "vscode": "^1.96.0"
   },
   "categories": [
+    "AI",
+    "Snippets",
     "Other"
   ],
   "activationEvents": [

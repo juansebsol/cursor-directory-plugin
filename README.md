@@ -1,108 +1,93 @@
+# Cursor Prompt Directory
 
-# Cursor Directory Plugin
-
-A beautiful, minimal prompt picker built for Cursor and VSCode.  
-Easily access your most used AI prompts through a sidebar or command palette and copy and paste them into Cursor chat with one click.
-
----
-
-## ✨ Features
-
-- 🔍 **Command Palette Search**: Type to search and select a prompt
-- 🧱 **Sidebar Panel**: Insert prompts using clean UI buttons
-- 📁 **Editable Prompt List**: Stored in a simple `src/prompts.json` file
-- 📋 **Clipboard Injection**: Prompt is copied — you paste it into Cursor chat
+Prompt manager for Cursor and VSCode.  
+Quickly browse, copy, and insert AI prompts all from a polished panel interface.
 
 ---
 
-## 📦 How to Install
+## Features
 
-### 1. Clone or Create This Project
+- **Searchable Prompt Picker** via Command Palette
+- **Interactive Prompt Panel** with collapsible prompt previews
+- **Add / Delete Prompts** with an intuitive UI modal
+- **Editable JSON Storage** in a folder you select
+- **Polished Apple-like UI** for the ultimate dev experience
+- **Clipboard-First Workflow** — prompts are 1-click copy ready
 
-If you’re starting from scratch:
+---
+
+## Quick Start
+
+### Option 1: Install via Marketplace (No Build Required ✅)
+
+> 🔗 **[Install via Extension Marketplace – Cursor Prompt Directory**  
+Just search for `Cursor Prompt Directory` in Cursor or VS Code Extensions.
+
+---
+
+### Option 2: Manual Build
+
+#### 1. Clone the Repo
+
 ```bash
-npm install -g yo generator-code vsce
-yo code  # Choose: New Extension (TypeScript)
-````
-
-Or if you have the project folder ready:
-
-```bash
+git clone https://github.com/juansebsol/cursor-directory-plugin
 cd cursor-directory-plugin
 ```
 
----
-
-### 2. Install Dependencies
+#### 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
----
-
-### 3. Compile the Extension
+#### 3. Compile the Plugin
 
 ```bash
 npm run compile
 ```
 
----
-
-### 4. Package as VSIX
+#### 4. Package the Extension
 
 ```bash
-vsce package
+npx vsce package
 ```
 
-This will create a file like:
+This generates a `.vsix` file (e.g. `cursor-directory-plugin-0.0.1.vsix`)
 
-```
-cursor-directory-plugin-0.0.1.vsix
-```
+#### 5. Install in Cursor
 
----
+- Open Cursor (or VS Code)
+- Open Extensions (`Cmd + Shift + X`)
+- Click the `…` menu > **Install from VSIX**
+- Select your `.vsix` file
 
-### 5. Install into Cursor
-
-* Open Cursor
-* Go to **Extensions** (Cmd+Shift+X)
-* Click the `⋯` menu (top-right)
-* Select **Install from VSIX...**
-* Choose your `.vsix` file
-* ✅ You’re done!
+✅ You're good to go.
 
 ---
 
 ## 🧠 How to Use
 
-### 🧭 Use the Command Palette
+### Command Palette Prompt Access
 
-* Open it with `Cmd + Shift + P`
-* Run `Prompt Dictionary: Insert from List`
+- Open Command Palette (`Cmd + Shift + P`)
+- Type `Prompt Dictionary: Open Panel`
+- Browse, copy, and paste a prompt into Cursor
 
-→ This opens a searchable list of your saved prompts.
+### Visual Prompt Panel
+
+- See all prompts in a clean, collapsible list
+- Click title to reveal the full prompt
+- Use buttons to:
+  - 📋 **Copy** to clipboard
+  - ❌ **Delete** prompt
+  - ➕ **Add** new prompt via modal
+  - ⚙️ **Change folder** where `prompts.json` is saved
 
 ---
 
-### 🧱 Use the Sidebar Panel
+## 📂 Prompt Format
 
-* Open Command Palette → `Prompt Dictionary: Open Sidebar`
-* Browse your prompts visually
-* Click “Insert” to copy it to your clipboard
-* Paste into Cursor chat
-
----
-
-## 📝 Customizing Prompts
-
-All your prompts live in:
-
-```
-src/prompts.json
-```
-
-Example:
+All prompts are stored in a simple `.json` file:
 
 ```json
 [
@@ -112,50 +97,56 @@ Example:
   },
   {
     "title": "Refactor",
-    "prompt": "Can you optimize this code for readability and performance?"
+    "prompt": "Can you improve this code for readability?"
   }
 ]
 ```
 
-Edit this file to add or change your favorite prompts. No rebuild required.
+> You choose where this file lives (and you can change it anytime).
 
 ---
 
-## 📂 Folder Structure
+## Folder Structure
 
 ```
 cursor-directory-plugin/
 ├── src/
-│   ├── extension.ts      # Main extension logic
-│   └── prompts.json      # Your list of prompts
-├── out/                  # Compiled JS after build
-├── package.json          # Metadata and command declarations
-├── README.md             # You're reading it
+│   └── extension.ts          # All main logic here
+├── out/                      # Compiled output
+├── package.json              # Extension manifest
+├── README.md                 # You're reading it
 ```
 
 ---
 
-## 🛠 Built With
+## Built With
 
-* TypeScript
-* VS Code Extension API
-* Webview for Sidebar UI
-* Clipboard API
-* Cursor IDE ❤️
-
----
-
-## 🐛 Known Limitations
-
-* Prompts are copied to your clipboard — you must paste them into Cursor manually (due to IDE sandboxing)
-* Auto-paste into AI chat is not yet supported natively
+- TypeScript
+- VS Code Extension API
+- Webview
+- Clipboard API
 
 ---
 
-## 📜 License
+## Want to Contribute?
+
+Ideas welcome! Potential enhancements:
+
+- Prompt categories/tags
+- Local encryption for secure prompts
+- Cloud sync (Supabase / Firebase / SQLite)
+
+Feel free to fork, PR, or suggest!
+
+---
+
+## Known Limitations
+
+- Prompts copy to clipboard only (manual paste required)
+- No auto-insert into Cursor chat (API sandbox limitation)
+
+---
+
+## License
 
 MIT © 2025 [Sebastian Solano](https://github.com/sebsol)
-
-```
-
----
